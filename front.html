@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Love Bomb Submission</title>
+</head>
+<body>
+    <h1>Envía tu mensaje Love Bomb</h1>
+    <form id="submissionForm">
+        <label for="contributor">Tu Nombre:</label><br>
+        <input type="text" id="contributor" name="contributor"><br><br>
+        <label for="recipient">Nombre del Destinatario:</label><br>
+        <input type="text" id="recipient" name="recipient"><br><br>
+        <label for="text">Mensaje:</label><br>
+        <textarea id="text" name="text"></textarea><br><br>
+        <label for="image">URL de la Imagen:</label><br>
+        <input type="text" id="image" name="image"><br><br>
+        <button type="button" onclick="submitForm()">Enviar</button>
+    </form>
+
+    <script>
+        function submitForm() {
+            const formData = {
+                contributor: document.getElementById('contributor').value,
+                recipient: document.getElementById('recipient').value,
+                text: document.getElementById('text').value,
+                image: document.getElementById('image').value
+            };
+
+            fetch('/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => alert(data.message));
+        }
+    </script>
+</body>
+</html>
